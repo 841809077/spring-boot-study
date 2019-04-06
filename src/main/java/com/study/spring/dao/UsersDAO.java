@@ -6,7 +6,7 @@ import java.util.List;
 
 /**
  * @author liuyzh
- * @description: dao层接口
+ * @description: 数据访问层接口
  * @date 2019/3/13 15:48
  */
 public interface UsersDAO {

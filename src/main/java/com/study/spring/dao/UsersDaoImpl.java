@@ -11,7 +11,7 @@ import java.util.List;
 
 /**
  * @author liuyzh
- * @description:
+ * @description: 数据访问层的具体实现
  * @date 2019/3/13 16:01
  */
 @Repository
