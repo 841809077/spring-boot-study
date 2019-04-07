@@ -39,6 +39,11 @@ public class NovelServiceImpl implements INovelService {
     }
 
     @Override
+    public void saveBatchNovel(List<NovelEntity> novelEntityList) {
+        inovelDAO.saveAll(novelEntityList);
+    }
+
+    @Override
     public boolean exists(Long id) {
         return inovelDAO.existsById(id);
     }
@@ -51,5 +56,10 @@ public class NovelServiceImpl implements INovelService {
     @Override
     public void deleteByNovelName(String novelName) {
         inovelDAO.deleteByNovelName(novelName);
+    }
+
+    @Override
+    public void deleteBatchNovel(List<NovelEntity> novelEntityList) {
+        inovelDAO.deleteAll(novelEntityList);
     }
 }

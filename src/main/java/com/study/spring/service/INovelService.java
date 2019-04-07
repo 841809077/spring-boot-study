@@ -39,6 +39,13 @@ public interface INovelService {
     void saveNovel(NovelEntity novelEntity);
     
     /**
+     * @description: 向表中批量插入或更新数据
+     * @param: novelEntityList
+     * @return: void
+     */
+    void saveBatchNovel(List<NovelEntity> novelEntityList);
+    
+    /**
      * @description: 根据id判断数据是否存在
      * @param: id
      * @return: boolean
@@ -58,5 +65,12 @@ public interface INovelService {
      * @return: void
      */
     void deleteByNovelName(String novelName);
+
+    /**
+     * @description: 批量删除表数据
+     * @param: novelEntityList
+     * @return: void
+     */
+    void deleteBatchNovel(List<NovelEntity> novelEntityList);
 
 }
