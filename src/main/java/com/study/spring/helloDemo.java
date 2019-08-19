@@ -1,5 +1,7 @@
 package com.study.spring;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -11,6 +13,8 @@ import java.util.Map;
 @RestController
 @RequestMapping("hello")
 public class helloDemo {
+
+    private static final Logger logger = LoggerFactory.getLogger(helloDemo.class);
 
     /**
      * http://localhost:8083/spring-boot-study/hello/info?name=tom&sex=%E7%94%B7
@@ -37,6 +41,8 @@ public class helloDemo {
      */
     @RequestMapping("is/{username}")
     public String getUser(@PathVariable String username){
+        logger.info("info info info info info info info info");
+        logger.warn("warn warn warn warn warn warn warn warn");
         return "hello, " + username + ", 睡觉";
     }
 }
