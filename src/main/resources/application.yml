@@ -13,6 +13,7 @@ server:
   servlet:
     context-path: /spring-boot-study
 #logging:
+#  config: classpath:logback-spring.xml
 #  level:
 #    root: info
 #    com:

@@ -1,8 +1,11 @@
-<configuration>
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true" scanPeriod="60 seconds" debug="false">
 
+    <!--定义日志文件的存储位置-->
     <property name="LOG_PATH" value="E://logs"/>
     <property name="LOG_FILE" value="app.log"/>
 
+    <!--控制台输出-->
     <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
         <layout class="ch.qos.logback.classic.PatternLayout">
             <Pattern>
@@ -11,7 +14,8 @@
         </layout>
     </appender>
 
-    <appender name="FILE-ROLLING" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <!--info文件输出-->
+    <appender name="FILE-INFO-ROLLING" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <file>${LOG_PATH}/${LOG_FILE}}</file>
 
         <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
@@ -33,9 +37,10 @@
 <!--        <appender-ref ref="CONSOLE"/>-->
 <!--    </logger>-->
 
+    <!--项目所有日志输出设置-->
     <root level="info">
         <appender-ref ref="CONSOLE"/>
-        <appender-ref ref="FILE-ROLLING"/>
+        <appender-ref ref="FILE-INFO-ROLLING"/>
     </root>
 
 </configuration>
