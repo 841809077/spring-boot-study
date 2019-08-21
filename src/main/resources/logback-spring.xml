@@ -1,46 +1,78 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- 设置每隔60秒扫描一次该文件 -->
 <configuration scan="true" scanPeriod="60 seconds" debug="false">
 
     <!--定义日志文件的存储位置-->
     <property name="LOG_PATH" value="E://logs"/>
-    <property name="LOG_FILE" value="app.log"/>
+    <property name="LOG_INFO_FILE" value="info.log"/>
+    <property name="LOG_ERROR_FILE" value="error.log"/>
+    <property name="LOG_DEBUG_FILE" value="debug.log"/>
 
     <!--控制台输出-->
     <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
         <layout class="ch.qos.logback.classic.PatternLayout">
-            <Pattern>
-                %d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n
-            </Pattern>
+            <!-- 19:34:48.934 [http-nio-8081-exec-1] WARN  com.study.spring.helloDemo - warn warn warn warn warn warn warn warn -->
+            <Pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</Pattern>
         </layout>
     </appender>
 
     <!--info文件输出-->
     <appender name="FILE-INFO-ROLLING" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>${LOG_PATH}/${LOG_FILE}}</file>
-
+        <file>${LOG_PATH}/info/${LOG_INFO_FILE}}</file>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>ERROR</level>
+            <onMatch>DENY</onMatch>
+            <onMismatch>ACCEPT</onMismatch>
+        </filter>
         <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
-            <fileNamePattern>${LOG_PATH}/app.%d{yyyy-MM-dd}.%i.log.gz</fileNamePattern>
-            <!-- each archived file, size max 10MB -->
-            <maxFileSize>4KB</maxFileSize>
-            <!-- total size of all archive files, if total size > 20GB, it will delete old archived file -->
+            <!-- app.2019-08-21.0.log.gz -->
+            <fileNamePattern>${LOG_PATH}/info/info.%d{yyyy-MM-dd-HH}.%i.log.gz</fileNamePattern>
+            <!-- 日志的每个文件，大小最大10MB -->
+            <maxFileSize>10MB</maxFileSize>
+            <!-- 日志所有文件的总大小，如果总大小>20GB，它将删除旧文件 -->
             <totalSizeCap>20GB</totalSizeCap>
-            <!-- 60 days to keep -->
+            <!-- 保留60天的历史纪录 -->
             <maxHistory>60</maxHistory>
         </rollingPolicy>
-
+        <!-- 格式化日志输出 -->
         <encoder>
-            <pattern>%d %p %c{1.} [%t] %m%n</pattern>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
         </encoder>
     </appender>
 
-<!--    <logger name="com.mkyong" level="debug" additivity="false">-->
-<!--        <appender-ref ref="CONSOLE"/>-->
-<!--    </logger>-->
+    <appender name="FILE-ERROR-ROLLING" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_PATH}/error/${LOG_ERROR_FILE}</file>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>ERROR</level>
+        </filter>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <!-- app.2019-08-21.0.log.gz -->
+            <fileNamePattern>${LOG_PATH}/error/error.%d{yyyy-MM-dd-HH}.%i.log.gz</fileNamePattern>
+            <!-- 日志的每个文件，大小最大10MB -->
+            <maxFileSize>10MB</maxFileSize>
+            <!-- 日志所有文件的总大小，如果总大小>20GB，它将删除旧文件 -->
+            <totalSizeCap>20GB</totalSizeCap>
+            <!-- 保留60天的历史纪录 -->
+            <maxHistory>60</maxHistory>
+        </rollingPolicy>
+        <!-- 格式化日志输出 -->
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!--自定义包/类的日志级别-->
+    <logger name="com.study.spring.helloDemo" level="warn" additivity="false">
+        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="FILE-INFO-ROLLING"/>
+        <appender-ref ref="FILE-ERROR-ROLLING"/>
+    </logger>
 
     <!--项目所有日志输出设置-->
     <root level="info">
         <appender-ref ref="CONSOLE"/>
         <appender-ref ref="FILE-INFO-ROLLING"/>
+        <appender-ref ref="FILE-ERROR-ROLLING"/>
     </root>
 
 </configuration>

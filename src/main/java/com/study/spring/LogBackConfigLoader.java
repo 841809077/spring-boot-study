@@ -11,7 +11,7 @@ import java.io.IOException;
 
 /**
  * @author liuyzh
- * @description:
+ * @description: 加载配置文件
  * @date 2019/8/21 10:59
  */
 public class LogBackConfigLoader {
