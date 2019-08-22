@@ -6,11 +6,7 @@ import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.test.context.web.WebAppConfiguration;
 
 import java.io.IOException;
 import java.util.Objects;
@@ -25,8 +21,6 @@ import java.util.Objects;
 public class LogbackTest {
     
     private static final Logger logger = LoggerFactory.getLogger(LogbackTest.class);
-
-
 
     @Test
     public void test(){
