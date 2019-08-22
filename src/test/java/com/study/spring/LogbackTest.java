@@ -32,9 +32,7 @@ public class LogbackTest {
     public void test(){
         try {
             LogBackConfigLoader.load(Objects.requireNonNull(LogbackTest.class.getClassLoader().getResource("logback-spring.xml")).getPath());
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (JoranException e) {
+        } catch (IOException | JoranException e) {
             e.printStackTrace();
         }
         logger.info("info123");

@@ -13,12 +13,4 @@ server:
   servlet:
     context-path: /spring-boot-study
 #logging:
-#  config: classpath:logback-spring.xml
-#  level:
-#    root: info
-#    com:
-#      study:
-#        spring:
-#          helloDemo: warn
-#  path: E:\dSave\logs\aa
-#  file: E:\dSave\logs\info.log
+#  config: classpath:logback-test.xml
