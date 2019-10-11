@@ -18,7 +18,7 @@ public class ListennerTest implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        for (int i = 1; i < 20; i++) {
+        for (int i = 1; i <= 12; i++) {
             t.ceshi();
 //            t.ceshi2();
 //            t.ceshi3();

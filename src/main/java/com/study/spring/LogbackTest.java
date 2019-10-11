@@ -9,7 +9,7 @@ import java.util.Objects;
 
 /**
  * @author liuyzh
- * @description:
+ * @description: main()方法加载日志配置测试
  * @date 2019/8/21 10:03
  */
 public class LogbackTest {

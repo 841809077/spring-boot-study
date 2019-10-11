@@ -6,6 +6,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
+import java.util.concurrent.ThreadPoolExecutor;
+
 
 /**
  * @author liuyzh
@@ -15,22 +17,26 @@ import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 @Configuration
 @EnableAsync
 @Slf4j
-public class ExecutorConfig {
+public class  ExecutorConfig {
 
     @Bean(name = "asyncTaskExecutor")
     public ThreadPoolTaskExecutor taskExecutor() {
         log.info("启动");
         ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
         // 核心线程数
-        executor.setCorePoolSize(21);
+        executor.setCorePoolSize(5);
         // 最大线程数
-        executor.setMaxPoolSize(50);
-        // 队列大小
-        executor.setQueueCapacity(100);
+        executor.setMaxPoolSize(8);
+        // 缓冲队列大小
+        executor.setQueueCapacity(2);
         // 线程前缀名
         executor.setThreadNamePrefix("async-thread-");
+        // 线程的空闲时间
+        executor.setKeepAliveSeconds(60);
+        // 拒绝策略
+        executor.setRejectedExecutionHandler(new ThreadPoolExecutor.DiscardOldestPolicy());
         // 线程初始化
-//        executor.initialize();
+        executor.initialize();
         return executor;
     }
 
