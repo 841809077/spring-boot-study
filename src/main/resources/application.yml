@@ -3,7 +3,7 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/spring_boot_study?allowMultiQueries=true&serverTimezone=GMT%2B8
     username: root
-    password: root
+    password: mycat123
   jpa:
     hibernate:
       ddl-auto: update   # 第一次建表用create,之后用update，
