@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 /**
  * @author liuyzh
- * @description
+ * @description 接口形式触发异步多线程
  * @date 2019-10-11
  */
 @RestController
@@ -21,7 +21,7 @@ public class ListennerTest2 {
     @GetMapping("dingshi")
     public void run() {
         for (int i = 1; i < 10; i++) {
-            t.ceshi();
+            t.ceshi2();
         }
     }
 }
