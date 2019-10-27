@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
  * @description: 定时任务触发异步多线程
  * @date 2019/10/11
  */
-@Component
+//@Component
 public class listennerTest3 {
 
     @Autowired

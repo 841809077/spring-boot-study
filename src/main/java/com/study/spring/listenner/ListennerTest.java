@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
  * @description 程序启动就执行异步多线程
  * @date 2019-10-10
  */
-@Component
+//@Component
 public class ListennerTest implements CommandLineRunner {
 
     @Autowired
