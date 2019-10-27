@@ -14,3 +14,13 @@ server:
     context-path: /spring-boot-study
 #logging:
 #  config: classpath:logback-spring.xml
+
+mybatis-plus:
+  mapper-locations: classpath:/mapper/*Mapper.xml
+  type-aliases-package: com.study.spring.entity
+  configuration:
+    # 开启驼峰映射
+    map-underscore-to-camel-case: true
+    cache-enabled: false
+    # sql日志打印
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl

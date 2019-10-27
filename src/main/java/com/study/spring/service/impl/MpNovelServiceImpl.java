@@ -19,4 +19,9 @@ public class MpNovelServiceImpl extends ServiceImpl<NovelMapper, NovelEntity> im
     public List<NovelEntity> getNovelInfo(String d) {
         return baseMapper.getNovelInfo(d);
     }
+
+    @Override
+    public Integer findMaxId() {
+        return baseMapper.findMaxId();
+    }
 }

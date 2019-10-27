@@ -1,0 +1,166 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.study.spring.mapper.NovelMapper">
+
+    <!-- 根据来源查询数据 -->
+    <select id="findMaxId" resultType="Integer">
+        select
+           max(id) maxId
+        from
+           novel_type
+    </select>
+
+<!--    &lt;!&ndash; 根据来源查询数据 &ndash;&gt;-->
+<!--    <select id="findMaxQueryHl" resultType="String">-->
+<!--        select-->
+<!--           max(passtime) passTime-->
+<!--        from-->
+<!--           st_gate-->
+<!--        where dataSource = 1-->
+<!--    </select>-->
+
+<!--    &lt;!&ndash; 保存数据 &ndash;&gt;-->
+<!--    <insert id="save" parameterType="haodai.tpextract.pojo.SlaveDO">-->
+<!--        insert into st_gate(-->
+<!--        personId-->
+<!--        <if test="null != name and '' != name">-->
+<!--            ,name-->
+<!--        </if>-->
+<!--        <if test="null != idPhoto and '' != idPhoto">-->
+<!--            ,idPhoto-->
+<!--        </if>-->
+<!--        <if test="null != scenePhoto and '' != scenePhoto">-->
+<!--            ,scenePhoto-->
+<!--        </if>-->
+<!--        <if test="null != passtime">-->
+<!--            ,passtime-->
+<!--        </if>-->
+<!--        <if test="null != camera and '' != camera">-->
+<!--            ,camera-->
+<!--        </if>-->
+<!--        <if test="null != compareRst and '' != compareRst">-->
+<!--            ,compareRst-->
+<!--        </if>-->
+<!--        <if test="null != compareScore and '' != compareScore">-->
+<!--            ,compareScore-->
+<!--        </if>-->
+<!--        <if test="null != peopleType and '' != peopleType">-->
+<!--            ,peopleType-->
+<!--        </if>-->
+<!--        <if test="null != peopleDesc and '' != peopleDesc">-->
+<!--            ,peopleDesc-->
+<!--        </if>-->
+<!--        <if test="null != in_out and '' != in_out">-->
+<!--            ,in_out-->
+<!--        </if>-->
+<!--        <if test="null != sex and '' != sex">-->
+<!--            ,sex-->
+<!--        </if>-->
+<!--        <if test="null != nation and '' != nation">-->
+<!--            ,nation-->
+<!--        </if>-->
+<!--        <if test="null != addr and '' != addr">-->
+<!--            ,addr-->
+<!--        </if>-->
+<!--        <if test="null != issuingAuthorityAddr and '' != issuingAuthorityAddr">-->
+<!--            ,issuingAuthorityAddr-->
+<!--        </if>-->
+<!--        <if test="null != cardStartDate and '' != cardStartDate">-->
+<!--            ,cardStartDate-->
+<!--        </if>-->
+<!--        <if test="null != fingerPrint and '' != fingerPrint">-->
+<!--            ,fingerPrint-->
+<!--        </if>-->
+<!--        <if test="null != scanImage and '' != scanImage">-->
+<!--            ,scanImage-->
+<!--        </if>-->
+<!--        <if test="null != sbbs and '' != sbbs">-->
+<!--            ,sbbs-->
+<!--        </if>-->
+<!--        <if test="null != dataSource">-->
+<!--            ,dataSource-->
+<!--        </if>-->
+<!--        <if test="null != hcid and '' != hcid">-->
+<!--            ,hcid-->
+<!--        </if>-->
+<!--        <if test="null != hlsj and '' != hlsj">-->
+<!--            ,hlsj-->
+<!--        </if>-->
+<!--        <if test="null != rksj and '' != rksj">-->
+<!--            ,rksj-->
+<!--        </if>-->
+<!--        )-->
+
+<!--        values(-->
+<!--        #{personId}-->
+<!--        <if test="null != name and '' != name">-->
+<!--            ,#{name}-->
+<!--        </if>-->
+<!--        <if test="null != idPhoto and '' != idPhoto">-->
+<!--            ,#{idPhoto}-->
+<!--        </if>-->
+<!--        <if test="null != scenePhoto and '' != scenePhoto">-->
+<!--            ,#{scenePhoto}-->
+<!--        </if>-->
+<!--        <if test="null != passtime">-->
+<!--            ,#{passtime}-->
+<!--        </if>-->
+<!--        <if test="null != camera and '' != camera">-->
+<!--            ,#{camera}-->
+<!--        </if>-->
+<!--        <if test="null != compareRst and '' != compareRst">-->
+<!--            ,#{compareRst}-->
+<!--        </if>-->
+<!--        <if test="null != compareScore and '' != compareScore">-->
+<!--            ,#{compareScore}-->
+<!--        </if>-->
+<!--        <if test="null != peopleType and '' != peopleType">-->
+<!--            ,#{peopleType}-->
+<!--        </if>-->
+<!--        <if test="null != peopleDesc and '' != peopleDesc">-->
+<!--            ,#{peopleDesc}-->
+<!--        </if>-->
+<!--        <if test="null != in_out and '' != in_out">-->
+<!--            ,#{in_out}-->
+<!--        </if>-->
+<!--        <if test="null != sex and '' != sex">-->
+<!--            ,#{sex}-->
+<!--        </if>-->
+<!--        <if test="null != nation and '' != nation">-->
+<!--            ,#{nation}-->
+<!--        </if>-->
+<!--        <if test="null != addr and '' != addr">-->
+<!--            ,#{addr}-->
+<!--        </if>-->
+<!--        <if test="null != issuingAuthorityAddr and '' != issuingAuthorityAddr">-->
+<!--            ,#{issuingAuthorityAddr}-->
+<!--        </if>-->
+<!--        <if test="null != cardStartDate and '' != cardStartDate">-->
+<!--            ,#{cardStartDate}-->
+<!--        </if>-->
+<!--        <if test="null != fingerPrint and '' != fingerPrint">-->
+<!--            ,#{fingerPrint}-->
+<!--        </if>-->
+<!--        <if test="null != scanImage and '' != scanImage">-->
+<!--            ,#{scanImage}-->
+<!--        </if>-->
+<!--        <if test="null != sbbs and '' != sbbs">-->
+<!--            ,#{sbbs}-->
+<!--        </if>-->
+<!--        <if test="null != dataSource">-->
+<!--            ,#{dataSource}-->
+<!--        </if>-->
+<!--        <if test="null != hcid and '' != hcid">-->
+<!--            ,#{hcid}-->
+<!--        </if>-->
+<!--        <if test="null != hlsj and '' != hlsj">-->
+<!--            ,#{hlsj}-->
+<!--        </if>-->
+<!--        <if test="null != rksj and '' != rksj">-->
+<!--            ,#{rksj}-->
+<!--        </if>-->
+<!--        )-->
+<!--    </insert>-->
+
+</mapper>

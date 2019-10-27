@@ -33,6 +33,11 @@ public class INovelServiceTest {
     }
 
     @Test
+    public void getMaxId() {
+        log.info("---" + mpNovelService.findMaxId());
+    }
+
+    @Test
     public void exist() throws Exception {
         System.out.println("测试");
         boolean exists = iNovelService.exists(3L);

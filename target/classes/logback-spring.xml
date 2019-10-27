@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 设置每隔60秒扫描一次该文件，debug: 当此属性设置为true时，将打印出logback内部日志信息，实时查看logback运行状态。默认值为false。 -->
+<configuration scan="true" scanPeriod="60 seconds" debug="false">
+
+    <!--定义日志文件的存储位置-->
+    <property name="LOG_PATH" value="./logs"/>
+    <property name="LOG_INFO_FILE" value="info.log"/>
+    <property name="LOG_ERROR_FILE" value="error.log"/>
+
+    <!--控制台输出-->
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <!-- 19:34:48.934 [http-nio-8081-exec-1] WARN  com.study.spring.helloDemo - warn warn warn warn warn warn warn warn -->
+            <Pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</Pattern>
+            <!-- 编码 -->
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+
+    <!--除去error级别的日志文件输出-->
+    <appender name="FILE-INFO-ROLLING" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!--如果是true，日志被追加到文件结尾，如果是false，清空现存文件，默认是true。-->
+        <append>true</append>
+        <file>${LOG_PATH}/info/${LOG_INFO_FILE}}</file>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <!--设置过滤的日志级别-->
+            <level>ERROR</level>
+            <!--符合该日志级别的，拒绝-->
+            <onMatch>DENY</onMatch>
+            <!--不符合该日志级别的接受-->
+            <onMismatch>ACCEPT</onMismatch>
+        </filter>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <!-- info.2019-08-21.0.log.gz -->
+            <fileNamePattern>${LOG_PATH}/info/info.%d{yyyy-MM-dd}.%i.log.gz</fileNamePattern>
+            <!-- 日志的每个文件，大小最大10MB -->
+            <maxFileSize>10MB</maxFileSize>
+            <!-- 日志所有文件的总大小，如果总大小>20GB，它将删除旧文件 -->
+            <totalSizeCap>20GB</totalSizeCap>
+            <!-- 保留60天的历史纪录 -->
+            <maxHistory>60</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <!-- 格式化日志输出 -->
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+            <!-- 编码 -->
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+
+    <!--error文件输出-->
+    <appender name="FILE-ERROR-ROLLING" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!--如果是true，日志被追加到文件结尾，如果是false，清空现存文件，默认是true。-->
+        <append>true</append>
+        <file>${LOG_PATH}/error/${LOG_ERROR_FILE}</file>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>ERROR</level>
+        </filter>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <!-- error.2019-08-21.0.log.gz -->
+            <fileNamePattern>${LOG_PATH}/error/error.%d{yyyy-MM-dd}.%i.log.gz</fileNamePattern>
+            <!-- 日志的每个文件，大小最大10MB -->
+            <maxFileSize>10MB</maxFileSize>
+            <!-- 日志所有文件的总大小，如果总大小>20GB，它将删除旧文件 -->
+            <totalSizeCap>20GB</totalSizeCap>
+            <!-- 保留60天的历史纪录 -->
+            <maxHistory>60</maxHistory>
+        </rollingPolicy>
+        <!-- 格式化日志输出 -->
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger - %msg%n</pattern>
+            <!-- 编码 -->
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+
+    <!--自定义包/类的日志级别-->
+    <logger name="com.study.spring.helloDemo" level="WARN" additivity="false">
+        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="FILE-INFO-ROLLING"/>
+        <appender-ref ref="FILE-ERROR-ROLLING"/>
+    </logger>
+
+    <!--项目所有日志输出设置-->
+    <root level="INFO">
+        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="FILE-INFO-ROLLING"/>
+        <appender-ref ref="FILE-ERROR-ROLLING"/>
+    </root>
+
+</configuration>

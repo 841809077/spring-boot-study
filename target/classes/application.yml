@@ -1,9 +1,9 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/spring_boot_study?allowMultiQueries=true&serverTimezone=GMT%2B8
+    url: jdbc:mysql://localhost:3306/spring_boot_study?allowMultiQueries=true&serverTimezone=Asia/Shanghai
     username: root
-    password: root
+    password: mycat123
   jpa:
     hibernate:
       ddl-auto: update   # 第一次建表用create,之后用update，
@@ -13,11 +13,14 @@ server:
   servlet:
     context-path: /spring-boot-study
 #logging:
-#  level:
-#    root: info
-#    com:
-#      study:
-#        spring:
-#          helloDemo: warn
-#  path: E:\dSave\logs\aa
-#  file: E:\dSave\logs\info.log
+#  config: classpath:logback-spring.xml
+
+mybatis-plus:
+  mapper-locations: classpath:/mapper/*Mapper.xml
+  type-aliases-package: com.study.spring.entity
+  configuration:
+    # 开启驼峰映射
+    map-underscore-to-camel-case: true
+    cache-enabled: false
+    # sql日志打印
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl

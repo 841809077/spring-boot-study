@@ -13,7 +13,9 @@ import java.util.List;
  */
 public interface NovelMapper extends BaseMapper<NovelEntity> {
 
-    @Select("select * from novel_type where download = #{d}")
-    List<NovelEntity> getNovelInfo(String d);
+    @Select("select * from novel_type where download = #{ghf}")
+    List<NovelEntity> getNovelInfo(String dd);
+
+    Integer findMaxId();
 
 }
