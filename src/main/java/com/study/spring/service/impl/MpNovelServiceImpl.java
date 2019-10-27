@@ -7,6 +7,7 @@ import com.study.spring.service.MpNovelService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author liuyzh
@@ -23,5 +24,10 @@ public class MpNovelServiceImpl extends ServiceImpl<NovelMapper, NovelEntity> im
     @Override
     public Integer findMaxId() {
         return baseMapper.findMaxId();
+    }
+
+    @Override
+    public List<NovelEntity> getDownloadList(Map<String,String> map) {
+        return baseMapper.getDownloadList(map);
     }
 }

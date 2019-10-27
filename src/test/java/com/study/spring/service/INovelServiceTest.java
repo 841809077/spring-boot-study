@@ -9,6 +9,9 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.validation.constraints.Size;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import static org.junit.Assert.*;
 
 /**
@@ -35,6 +38,13 @@ public class INovelServiceTest {
     @Test
     public void getMaxId() {
         log.info("---" + mpNovelService.findMaxId());
+    }
+
+    @Test
+    public void getDownloadList() {
+        Map<String, String> map = new HashMap<>();
+        map.put("dl", "true");
+        log.info("---" + mpNovelService.getDownloadList(map));
     }
 
     @Test
