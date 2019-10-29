@@ -14,9 +14,15 @@ import java.util.Map;
  */
 public interface MpNovelService extends IService<NovelEntity> {
 
-    List<NovelEntity> getNovelInfo(String d);
+    List<NovelEntity> getNovelInfo(String d, String t);
 
     Integer findMaxId();
 
     List<NovelEntity> getDownloadList(Map<String,String> map);
+
+    int updateNovelInfo(String novelName, String novelAuthor);
+
+    int saveNovelInfo(NovelEntity novelEntity);
+
+    int deleteNovelInfo(String novelName);
 }

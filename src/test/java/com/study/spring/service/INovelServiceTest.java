@@ -1,5 +1,6 @@
 package com.study.spring.service;
 
+import com.study.spring.entity.NovelEntity;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -32,7 +33,7 @@ public class INovelServiceTest {
 
     @Test
     public void aa() {
-        log.info("---" + mpNovelService.getNovelInfo("已下载"));
+        log.info("---" + mpNovelService.getNovelInfo("已下载", "已完结"));
     }
 
     @Test
@@ -45,6 +46,30 @@ public class INovelServiceTest {
         Map<String, String> map = new HashMap<>();
         map.put("dl", "true");
         log.info("---" + mpNovelService.getDownloadList(map));
+    }
+
+    @Test
+    public void updateNovelInfo() {
+        int updateCount = mpNovelService.updateNovelInfo("遮天", "辰东er");
+        log.info(String.valueOf(updateCount));
+    }
+
+    @Test
+    public void saveNovelInfo() {
+        NovelEntity novelEntity = new NovelEntity();
+        novelEntity.setNovelName("遮天");
+        novelEntity.setNovelAuthor("唐家三少");
+        novelEntity.setIntroduce("热销作品");
+        novelEntity.setType("已完结");
+//        novelEntity.setDownload("true");
+        int saveCount = mpNovelService.saveNovelInfo(novelEntity);
+        log.info("saveCount: " + saveCount);
+    }
+
+    @Test
+    public void deleteNovelInfo() {
+        int deleteCount = mpNovelService.deleteNovelInfo("遮天");
+        log.info("deleteCount: " + deleteCount);
     }
 
     @Test

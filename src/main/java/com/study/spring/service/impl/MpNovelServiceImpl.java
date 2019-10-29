@@ -17,8 +17,8 @@ import java.util.Map;
 @Service
 public class MpNovelServiceImpl extends ServiceImpl<NovelMapper, NovelEntity> implements MpNovelService {
     @Override
-    public List<NovelEntity> getNovelInfo(String d) {
-        return baseMapper.getNovelInfo(d);
+    public List<NovelEntity> getNovelInfo(String d, String t) {
+        return baseMapper.getNovelInfo(d, t);
     }
 
     @Override
@@ -29,5 +29,20 @@ public class MpNovelServiceImpl extends ServiceImpl<NovelMapper, NovelEntity> im
     @Override
     public List<NovelEntity> getDownloadList(Map<String,String> map) {
         return baseMapper.getDownloadList(map);
+    }
+
+    @Override
+    public int updateNovelInfo(String novelName, String novelAuthor) {
+        return baseMapper.updateNovelInfo(novelName, novelAuthor);
+    }
+
+    @Override
+    public int saveNovelInfo(NovelEntity novelEntity) {
+        return baseMapper.saveNovelInfo(novelEntity);
+    }
+
+    @Override
+    public int deleteNovelInfo(String novelName) {
+        return baseMapper.deleteNovelInfo(novelName);
     }
 }
