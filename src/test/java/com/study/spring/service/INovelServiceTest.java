@@ -1,6 +1,7 @@
 package com.study.spring.service;
 
 import com.study.spring.entity.NovelEntity;
+import com.study.spring.mapper.NovelMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -59,18 +60,41 @@ public class INovelServiceTest {
     public void saveNovelInfo() {
         NovelEntity novelEntity = new NovelEntity();
         novelEntity.setNovelName("遮天");
-        novelEntity.setNovel_author("唐家三少");
-        novelEntity.setIntroduce("热销作品");
+        novelEntity.setNovel_author("辰东");
+//        novelEntity.setIntroduce("热销作品");
         novelEntity.setType("已完结");
 //        novelEntity.setDownload("true");
-        int saveCount = mpNovelService.saveNovelInfo(novelEntity);
-        log.info("saveCount: " + saveCount);
+        mpNovelService.saveNovel(novelEntity);
     }
 
     @Test
     public void deleteNovelInfo() {
         int deleteCount = mpNovelService.deleteNovelInfo("遮天");
         log.info("deleteCount: " + deleteCount);
+    }
+
+    @Test
+    public void updateNovel(){
+        NovelEntity novelEntity = new NovelEntity();
+        novelEntity.setNovelName("遮天");
+        novelEntity.setNovel_author("辰东");
+//        novelEntity.setIntroduce("热销作品");
+//        novelEntity.setType("已完结");
+//        novelEntity.setDownload("true");
+        int aa = mpNovelService.updateNovelByName(novelEntity);
+        System.out.println(aa);
+    }
+
+    @Test
+    public void deleteNoveByName(){
+        NovelEntity novelEntity = new NovelEntity();
+        novelEntity.setNovelName("遮天");
+//        novelEntity.setNovel_author("辰东");
+//        novelEntity.setIntroduce("热销作品");
+//        novelEntity.setType("已完结");
+//        novelEntity.setDownload("true");
+        int aa = mpNovelService.deleteNoveBy(novelEntity);
+        System.out.println(aa);
     }
 
     @Test

@@ -40,7 +40,7 @@
         <if test="introduce != null and introduce != ''">
             ,introduce
         </if>
-        <if test="novelAuthor !=null and novelAuthor != ''">
+        <if test="novel_author !=null and novel_author != ''">
             ,novelauthor
         </if>
         <if test="novelName != null and novelName != ''">
@@ -55,8 +55,8 @@
         <if test="introduce != null and introduce != ''">
             ,#{introduce}
         </if>
-        <if test="novelAuthor !=null and novelAuthor != ''">
-            ,#{novelAuthor}
+        <if test="novel_author !=null and novel_author != ''">
+            ,#{novel_author}
         </if>
         <if test="novelName != null and novelName != ''">
             ,#{novelName}
@@ -71,13 +71,42 @@
     <update id="updateNovelByName" parameterType="com.study.spring.entity.NovelEntity">
         update novel_type
         <set>
-            download = #{download},
-            password = #{password},
-            email = #{email},
-            bio = #{bio}
+            <if test="download != null and download != ''">
+                download = #{download},
+            </if>
+            <if test="introduce != null and introduce != ''">
+                introduce = #{introduce},
+            </if>
+            <if test="novel_author !=null and novel_author != ''">
+                novelauthor = #{novel_author},
+            </if>
+            <if test="type != null and type != ''">
+                type = #{type}
+            </if>
         </set>
         where
         novelName = #{novelName}
     </update>
+
+    <delete id="deleteNoveBy" parameterType="com.study.spring.entity.NovelEntity">
+        DELETE FROM novel_type
+        <where>
+            <if test="download != null and download != ''">
+                download = #{download}
+            </if>
+            <if test="introduce != null and introduce != ''">
+                and introduce = #{introduce}
+            </if>
+            <if test="novel_author !=null and novel_author != ''">
+                and novelauthor = #{novel_author}
+            </if>
+            <if test="type != null and type != ''">
+                and type = #{type}
+            </if>
+            <if test="novelName != null and novelName != ''">
+                and novelName = #{novelName}
+            </if>
+        </where>
+    </delete>
 
 </mapper>
