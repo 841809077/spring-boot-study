@@ -44,7 +44,8 @@ public class INovelServiceTest {
     @Test
     public void getDownloadList() {
         Map<String, String> map = new HashMap<>();
-        map.put("dl", "true");
+        map.put("dl", "已下载");
+        map.put("nu", "金庸");
         log.info("---" + mpNovelService.getDownloadList(map));
     }
 
@@ -58,7 +59,7 @@ public class INovelServiceTest {
     public void saveNovelInfo() {
         NovelEntity novelEntity = new NovelEntity();
         novelEntity.setNovelName("遮天");
-        novelEntity.setNovelAuthor("唐家三少");
+        novelEntity.setNovel_author("唐家三少");
         novelEntity.setIntroduce("热销作品");
         novelEntity.setType("已完结");
 //        novelEntity.setDownload("true");

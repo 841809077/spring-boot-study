@@ -26,7 +26,7 @@ public interface INovelDAO extends JpaRepository<NovelEntity, Long>,
      * @param: type（小说类型）
      * @return: java.util.List<com.study.spring.entity.NovelEntity>
      */
-    @Query("select nt from NovelEntity nt where nt.novelAuthor = ?1 and nt.type = ?2")
+    @Query("select nt from NovelEntity nt where nt.novel_author = ?1 and nt.type = ?2")
     List<NovelEntity> findByAuthorAndType(String author, String type);
 
     /**

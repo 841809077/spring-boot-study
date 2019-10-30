@@ -31,4 +31,6 @@ public interface NovelMapper extends BaseMapper<NovelEntity> {
 
     List<NovelEntity> getDownloadList(@Param("query") Map<String, String> map);
 
+    void saveNovel(NovelEntity novelEntity);
+
 }

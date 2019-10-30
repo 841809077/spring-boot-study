@@ -3,6 +3,12 @@
 
 <mapper namespace="com.study.spring.mapper.NovelMapper">
 
+    <!-- 定义的resultMap，可以解决类的属性名和数据库列名不一致的问题-->
+    <!-- property值为实体类属性，column值为数据库表字段 -->
+    <resultMap type="NovelEntity" id="getDownloadList">
+        <result property="novel_author" column="novelauthor"/>
+    </resultMap>
+
     <!-- 根据来源查询数据 -->
     <select id="findMaxId" resultType="Integer">
         select
@@ -11,165 +17,67 @@
            novel_type
     </select>
 
-    <select id="getDownloadList" resultType="com.study.spring.entity.NovelEntity" parameterType="map">
+    <!--    resultType="com.study.spring.entity.NovelEntity"-->
+    <select id="getDownloadList" resultMap="getDownloadList" parameterType="hashmap">
         select
-            *
+        id, download, introduce, novelauthor, novelname, type
         from
-            novel_type
-        where
-            download = #{query.dl}
+        novel_type
+        <where>
+            <if test="query.dl != null and query.dl != ''">
+                download = #{query.dl}
+            </if>
+            <if test="query.nu != null and query.nu != ''">
+                and novelauthor = #{query.nu}
+            </if>
+        </where>
     </select>
 
-    <!--    &lt;!&ndash; 根据来源查询数据 &ndash;&gt;-->
-    <!--    <select id="findMaxQueryHl" resultType="String">-->
-    <!--        select-->
-    <!--           max(passtime) passTime-->
-    <!--        from-->
-    <!--           st_gate-->
-    <!--        where dataSource = 1-->
-    <!--    </select>-->
+    <!--    if标签内的判断条件是NovelEntity里面的属性，而不是表字段-->
+    <insert id="saveNovel" parameterType="com.study.spring.entity.NovelEntity">
+        insert into novel_type(
+        download
+        <if test="introduce != null and introduce != ''">
+            ,introduce
+        </if>
+        <if test="novelAuthor !=null and novelAuthor != ''">
+            ,novelauthor
+        </if>
+        <if test="novelName != null and novelName != ''">
+            ,novelname
+        </if>
+        <if test="type != null and type != ''">
+            ,type
+        </if>
+        )
+        values (
+        #{download}
+        <if test="introduce != null and introduce != ''">
+            ,#{introduce}
+        </if>
+        <if test="novelAuthor !=null and novelAuthor != ''">
+            ,#{novelAuthor}
+        </if>
+        <if test="novelName != null and novelName != ''">
+            ,#{novelName}
+        </if>
+        <if test="type != null and type != ''">
+            ,#{type}
+        </if>
+        )
 
-    <!--    &lt;!&ndash; 保存数据 &ndash;&gt;-->
-    <!--    <insert id="save" parameterType="haodai.tpextract.pojo.SlaveDO">-->
-    <!--        insert into st_gate(-->
-    <!--        personId-->
-    <!--        <if test="null != name and '' != name">-->
-    <!--            ,name-->
-    <!--        </if>-->
-    <!--        <if test="null != idPhoto and '' != idPhoto">-->
-    <!--            ,idPhoto-->
-    <!--        </if>-->
-    <!--        <if test="null != scenePhoto and '' != scenePhoto">-->
-    <!--            ,scenePhoto-->
-    <!--        </if>-->
-    <!--        <if test="null != passtime">-->
-    <!--            ,passtime-->
-    <!--        </if>-->
-    <!--        <if test="null != camera and '' != camera">-->
-    <!--            ,camera-->
-    <!--        </if>-->
-    <!--        <if test="null != compareRst and '' != compareRst">-->
-    <!--            ,compareRst-->
-    <!--        </if>-->
-    <!--        <if test="null != compareScore and '' != compareScore">-->
-    <!--            ,compareScore-->
-    <!--        </if>-->
-    <!--        <if test="null != peopleType and '' != peopleType">-->
-    <!--            ,peopleType-->
-    <!--        </if>-->
-    <!--        <if test="null != peopleDesc and '' != peopleDesc">-->
-    <!--            ,peopleDesc-->
-    <!--        </if>-->
-    <!--        <if test="null != in_out and '' != in_out">-->
-    <!--            ,in_out-->
-    <!--        </if>-->
-    <!--        <if test="null != sex and '' != sex">-->
-    <!--            ,sex-->
-    <!--        </if>-->
-    <!--        <if test="null != nation and '' != nation">-->
-    <!--            ,nation-->
-    <!--        </if>-->
-    <!--        <if test="null != addr and '' != addr">-->
-    <!--            ,addr-->
-    <!--        </if>-->
-    <!--        <if test="null != issuingAuthorityAddr and '' != issuingAuthorityAddr">-->
-    <!--            ,issuingAuthorityAddr-->
-    <!--        </if>-->
-    <!--        <if test="null != cardStartDate and '' != cardStartDate">-->
-    <!--            ,cardStartDate-->
-    <!--        </if>-->
-    <!--        <if test="null != fingerPrint and '' != fingerPrint">-->
-    <!--            ,fingerPrint-->
-    <!--        </if>-->
-    <!--        <if test="null != scanImage and '' != scanImage">-->
-    <!--            ,scanImage-->
-    <!--        </if>-->
-    <!--        <if test="null != sbbs and '' != sbbs">-->
-    <!--            ,sbbs-->
-    <!--        </if>-->
-    <!--        <if test="null != dataSource">-->
-    <!--            ,dataSource-->
-    <!--        </if>-->
-    <!--        <if test="null != hcid and '' != hcid">-->
-    <!--            ,hcid-->
-    <!--        </if>-->
-    <!--        <if test="null != hlsj and '' != hlsj">-->
-    <!--            ,hlsj-->
-    <!--        </if>-->
-    <!--        <if test="null != rksj and '' != rksj">-->
-    <!--            ,rksj-->
-    <!--        </if>-->
-    <!--        )-->
+    </insert>
 
-    <!--        values(-->
-    <!--        #{personId}-->
-    <!--        <if test="null != name and '' != name">-->
-    <!--            ,#{name}-->
-    <!--        </if>-->
-    <!--        <if test="null != idPhoto and '' != idPhoto">-->
-    <!--            ,#{idPhoto}-->
-    <!--        </if>-->
-    <!--        <if test="null != scenePhoto and '' != scenePhoto">-->
-    <!--            ,#{scenePhoto}-->
-    <!--        </if>-->
-    <!--        <if test="null != passtime">-->
-    <!--            ,#{passtime}-->
-    <!--        </if>-->
-    <!--        <if test="null != camera and '' != camera">-->
-    <!--            ,#{camera}-->
-    <!--        </if>-->
-    <!--        <if test="null != compareRst and '' != compareRst">-->
-    <!--            ,#{compareRst}-->
-    <!--        </if>-->
-    <!--        <if test="null != compareScore and '' != compareScore">-->
-    <!--            ,#{compareScore}-->
-    <!--        </if>-->
-    <!--        <if test="null != peopleType and '' != peopleType">-->
-    <!--            ,#{peopleType}-->
-    <!--        </if>-->
-    <!--        <if test="null != peopleDesc and '' != peopleDesc">-->
-    <!--            ,#{peopleDesc}-->
-    <!--        </if>-->
-    <!--        <if test="null != in_out and '' != in_out">-->
-    <!--            ,#{in_out}-->
-    <!--        </if>-->
-    <!--        <if test="null != sex and '' != sex">-->
-    <!--            ,#{sex}-->
-    <!--        </if>-->
-    <!--        <if test="null != nation and '' != nation">-->
-    <!--            ,#{nation}-->
-    <!--        </if>-->
-    <!--        <if test="null != addr and '' != addr">-->
-    <!--            ,#{addr}-->
-    <!--        </if>-->
-    <!--        <if test="null != issuingAuthorityAddr and '' != issuingAuthorityAddr">-->
-    <!--            ,#{issuingAuthorityAddr}-->
-    <!--        </if>-->
-    <!--        <if test="null != cardStartDate and '' != cardStartDate">-->
-    <!--            ,#{cardStartDate}-->
-    <!--        </if>-->
-    <!--        <if test="null != fingerPrint and '' != fingerPrint">-->
-    <!--            ,#{fingerPrint}-->
-    <!--        </if>-->
-    <!--        <if test="null != scanImage and '' != scanImage">-->
-    <!--            ,#{scanImage}-->
-    <!--        </if>-->
-    <!--        <if test="null != sbbs and '' != sbbs">-->
-    <!--            ,#{sbbs}-->
-    <!--        </if>-->
-    <!--        <if test="null != dataSource">-->
-    <!--            ,#{dataSource}-->
-    <!--        </if>-->
-    <!--        <if test="null != hcid and '' != hcid">-->
-    <!--            ,#{hcid}-->
-    <!--        </if>-->
-    <!--        <if test="null != hlsj and '' != hlsj">-->
-    <!--            ,#{hlsj}-->
-    <!--        </if>-->
-    <!--        <if test="null != rksj and '' != rksj">-->
-    <!--            ,#{rksj}-->
-    <!--        </if>-->
-    <!--        )-->
-    <!--    </insert>-->
+    <update id="updateNovelByName" parameterType="com.study.spring.entity.NovelEntity">
+        update novel_type
+        <set>
+            download = #{download},
+            password = #{password},
+            email = #{email},
+            bio = #{bio}
+        </set>
+        where
+        novelName = #{novelName}
+    </update>
 
 </mapper>

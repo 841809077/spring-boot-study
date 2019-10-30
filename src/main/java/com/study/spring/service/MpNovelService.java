@@ -25,4 +25,6 @@ public interface MpNovelService extends IService<NovelEntity> {
     int saveNovelInfo(NovelEntity novelEntity);
 
     int deleteNovelInfo(String novelName);
+
+    void saveNovel(NovelEntity novelEntity);
 }

@@ -45,4 +45,9 @@ public class MpNovelServiceImpl extends ServiceImpl<NovelMapper, NovelEntity> im
     public int deleteNovelInfo(String novelName) {
         return baseMapper.deleteNovelInfo(novelName);
     }
+
+    @Override
+    public void saveNovel(NovelEntity novelEntity) {
+        baseMapper.saveNovel(novelEntity);
+    }
 }
