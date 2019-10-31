@@ -1,5 +1,6 @@
 package com.study.spring.controller;
 
+import com.study.spring.aspect.WebLog;
 import com.study.spring.entity.NovelEntity;
 import com.study.spring.service.INovelService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +36,7 @@ public class NovelController {
      * @return: long
      */
     @RequestMapping("count")
+    @WebLog(desc = "aaaa")
     public long count() {
         return iNovelService.count();
     }

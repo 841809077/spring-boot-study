@@ -1,5 +1,6 @@
 package com.study.spring.service;
 
+import com.study.spring.aspect.WebLog;
 import com.study.spring.entity.NovelEntity;
 import com.study.spring.mapper.NovelMapper;
 import lombok.extern.slf4j.Slf4j;
