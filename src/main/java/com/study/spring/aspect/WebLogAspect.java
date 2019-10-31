@@ -7,6 +7,8 @@ import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
 import org.springframework.stereotype.Component;
 
+import java.lang.reflect.Method;
+
 /**
  * @author Liuyongzhi
  * @description:
@@ -39,12 +41,41 @@ public class WebLogAspect {
     }
 
     @Before("WebLog()")
-    public void doBefore(JoinPoint joinPoint){
+    public void doBefore(JoinPoint joinPoint) throws Exception {
+        String desc = getAspectLogDescription(joinPoint);
         log.info("doBefore...");
+        log.info(desc);
     }
 
     @After("WebLog()")
     public void doAfter(){
         log.info("doAfter...");
+    }
+
+    /**
+     * 获取切面注解的描述
+     *
+     * @param joinPoint 切点
+     * @return 描述信息
+     * @throws Exception
+     */
+    public String getAspectLogDescription(JoinPoint joinPoint)
+            throws Exception {
+        String targetName = joinPoint.getTarget().getClass().getName();
+        String methodName = joinPoint.getSignature().getName();
+        Object[] arguments = joinPoint.getArgs();
+        Class targetClass = Class.forName(targetName);
+        Method[] methods = targetClass.getMethods();
+        StringBuilder description = new StringBuilder("");
+        for (Method method : methods) {
+            if (method.getName().equals(methodName)) {
+                Class[] clazzs = method.getParameterTypes();
+                if (clazzs.length == arguments.length) {
+                    description.append(method.getAnnotation(WebLog.class).desc());
+                    break;
+                }
+            }
+        }
+        return description.toString();
     }
 }

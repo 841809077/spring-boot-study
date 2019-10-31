@@ -36,7 +36,7 @@ public class NovelController {
      * @return: long
      */
     @RequestMapping("count")
-    @WebLog(desc = "aaaa")
+    @WebLog()
     public long count() {
         return iNovelService.count();
     }

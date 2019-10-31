@@ -44,6 +44,7 @@ public class INovelServiceTest {
     }
 
     @Test
+    @WebLog
     public void getDownloadList() {
         Map<String, String> map = new HashMap<>();
         map.put("dl", "已下载");
