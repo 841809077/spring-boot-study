@@ -1,6 +1,7 @@
 package com.study.spring.aspect;
 
 import com.google.gson.Gson;
+import com.study.spring.annotation.WebLog;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -19,8 +20,27 @@ import java.lang.reflect.Method;
 @Slf4j
 public class WebLogAspect {
 
-    @Pointcut("@annotation(com.study.spring.aspect.WebLog)")
+    @Pointcut("@annotation(com.study.spring.annotation.WebLog)")
     public void WebLog() {
+    }
+
+    /**
+     * 打印入参
+     */
+    @Before("WebLog()")
+    public void doBefore(JoinPoint joinPoint) throws Exception {
+//        String desc = getAspectLogDescription(joinPoint);
+//        joinPoint.getTarget().getClass().getName();
+//        log.info("doBefore...");
+//        log.info(desc);
+        String className = joinPoint.getTarget().getClass().getName();
+        String methodName = joinPoint.getSignature().getName();
+        Object[] args = joinPoint.getArgs();
+        StringBuilder sb = new StringBuilder();
+        for(Object arg: args){
+            sb.append(arg).append(", ");
+        }
+        log.info(className + "." + methodName + " args have: " + sb);
     }
 
     /**
@@ -29,27 +49,37 @@ public class WebLogAspect {
      * @return java.lang.Object
      */
     @Around("WebLog()")
-    public Object doAround(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
+    public Object doAround(ProceedingJoinPoint point) throws Throwable {
+        String strClassName = point.getTarget().getClass().getName();
+        String strMethodName = point.getSignature().getName();
+        log.info("[类名] : {} , [方法名] : {} ", strClassName, strMethodName);
+
+
         long startTime = System.currentTimeMillis();
         // 执行切点。执行切点后，会去依次调用 @Before -> 接口逻辑代码 -> @After -> @AfterReturning；
-        Object result = proceedingJoinPoint.proceed();
-        // 打印出参
-        log.info("Response Args: {}", new Gson().toJson(result));
-        // 执行耗时
-        log.info("执行耗时：{}", System.currentTimeMillis() - startTime);
-        return result;
-    }
 
-    @Before("WebLog()")
-    public void doBefore(JoinPoint joinPoint) throws Exception {
-        String desc = getAspectLogDescription(joinPoint);
-        log.info("doBefore...");
-        log.info(desc);
+        // point.proceed 为方法返回值
+        Object result = point.proceed();
+        // 打印出参
+        log.info("Response Results: {}", new Gson().toJson(result));
+        // 执行耗时
+        log.info("执行耗时：{} ms", System.currentTimeMillis() - startTime);
+        return result;
     }
 
     @After("WebLog()")
     public void doAfter(){
         log.info("doAfter...");
+    }
+
+    @AfterReturning("WebLog()")
+    public void afterReturn(){
+        log.info("After Returning...");
+    }
+
+    @AfterThrowing("WebLog()")
+    public void afterThrowing(Throwable e){
+        log.info("After throwing...");
     }
 
     /**

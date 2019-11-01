@@ -1,6 +1,6 @@
 package com.study.spring.controller;
 
-import com.study.spring.aspect.WebLog;
+import com.study.spring.annotation.WebLog;
 import com.study.spring.entity.NovelEntity;
 import com.study.spring.service.INovelService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +27,7 @@ public class NovelController {
      * @return: java.util.List<com.study.spring.entity.NovelEntity>
      */
     @RequestMapping("list")
+    @WebLog()
     public List<NovelEntity> findAll() {
         return iNovelService.findAll();
     }

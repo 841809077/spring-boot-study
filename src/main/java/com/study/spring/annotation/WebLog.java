@@ -1,4 +1,4 @@
-package com.study.spring.aspect;
+package com.study.spring.annotation;
 
 import java.lang.annotation.*;
 
