@@ -1,6 +1,7 @@
 package com.study.spring.controller;
 
-import com.study.spring.annotation.WebLog;
+import com.study.spring.Utils.ExceptionHandle;
+import com.study.spring.annotation.HandleResult;
 import com.study.spring.entity.NovelEntity;
 import com.study.spring.service.INovelService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,13 +23,16 @@ public class NovelController {
     @Autowired
     private INovelService iNovelService;
 
+    @Autowired
+    private ExceptionHandle exceptionHandle;
+
     /**
      * @description: 获取表中所有信息
      * @return: java.util.List<com.study.spring.entity.NovelEntity>
      */
     @RequestMapping("list")
-    @WebLog()
-    public List<NovelEntity> findAll() {
+    @HandleResult
+    public Object findAll() {
         return iNovelService.findAll();
     }
 
@@ -37,26 +41,22 @@ public class NovelController {
      * @return: long
      */
     @RequestMapping("count")
-    @WebLog()
-    public long count() {
+    @HandleResult
+    public Object count() {
         return iNovelService.count();
     }
 
     /**
      * @description: 向表中插入或更新一条数据
      * @param: novelEntity
-     * @return: java.util.Map<java.lang.String,java.lang.Boolean>
+     * @return: java.util.Map<java.lang.String, java.lang.Boolean>
      */
+    @HandleResult
     @RequestMapping(value = "save", method = RequestMethod.POST)
-    public Map<String, Boolean> saveNovel(NovelEntity novelEntity) {
+    public Object saveNovel(NovelEntity novelEntity) {
         Map<String, Boolean> map = new HashMap<>();
-        try {
-            iNovelService.saveNovel(novelEntity);
-            map.put("status", true);
-        } catch (Exception e) {
-            e.printStackTrace();
-            map.put("status", false);
-        }
+        iNovelService.saveNovel(novelEntity);
+        map.put("status", true);
         return map;
     }
 
@@ -65,18 +65,14 @@ public class NovelController {
      * POST http://localhost:8081/spring-boot-study/novel/saveBatchNovel
      * body: [{"id": 1,"novelName": "斗罗大陆","novelAuthor": "唐家三少","type": "已完结","introduce": "斗罗大陆出新手游啦~","download": "true"},{"id": 2,"novelName": "斗破苍穹","novelAuthor": "天蚕土豆","type": "已完结","introduce":"这里是属于斗气的世界，没有花俏艳丽的魔法，有的，仅仅是繁衍到巅峰的斗气！新书等级制度：斗者，斗师，大斗师，斗灵，斗王，斗皇，斗宗，斗尊，斗圣，斗帝。","download": "true"}]
      * @param: novelEntityList
-     * @return: java.util.Map<java.lang.String,java.lang.Boolean>
+     * @return: java.util.Map<java.lang.String, java.lang.Boolean>
      */
+    @HandleResult
     @RequestMapping(value = "saveBatchNovel", method = RequestMethod.POST)
-    public Map<String, Boolean> saveBatchNovel(@RequestBody List<NovelEntity> novelEntityList) {
+    public Object saveBatchNovel(@RequestBody List<NovelEntity> novelEntityList) {
         Map<String, Boolean> map = new HashMap<>();
-        try {
-            iNovelService.saveBatchNovel(novelEntityList);
-            map.put("status", true);
-        } catch (Exception e) {
-            e.printStackTrace();
-            map.put("status", false);
-        }
+        iNovelService.saveBatchNovel(novelEntityList);
+        map.put("status", true);
         return map;
     }
 
@@ -116,7 +112,7 @@ public class NovelController {
     /**
      * @description: 根据表的id来删除数据
      * @param: id
-     * @return: java.util.Map<java.lang.String,java.lang.Boolean>
+     * @return: java.util.Map<java.lang.String, java.lang.Boolean>
      */
     @RequestMapping(value = "id/{id}", method = RequestMethod.DELETE)
     public Map<String, Boolean> deleteById(@PathVariable("id") Long id) {
@@ -141,7 +137,7 @@ public class NovelController {
     /**
      * @description: 根据小说名称来删除数据
      * @param: novelName
-     * @return: java.util.Map<java.lang.String,java.lang.Boolean>
+     * @return: java.util.Map<java.lang.String, java.lang.Boolean>
      */
     @RequestMapping(value = "deleteByNovelName", method = RequestMethod.DELETE)
     public Map<String, Boolean> deleteByNovelName(@RequestBody NovelEntity ne) {
@@ -155,13 +151,13 @@ public class NovelController {
         }
         return map;
     }
-    
+
     /**
      * @description: 批量删除表数据
      * DELETE http://localhost:8081/spring-boot-study/novel/deleteBatchNovel
      * body: [{"id": 1},{"id": 2}] ，也可以将所有字段都指出。
      * @param: novelEntityList
-     * @return: java.util.Map<java.lang.String,java.lang.Boolean>
+     * @return: java.util.Map<java.lang.String, java.lang.Boolean>
      */
     @RequestMapping(value = "deleteBatchNovel", method = RequestMethod.DELETE)
     public Map<String, Boolean> deleteBatchNovel(@RequestBody List<NovelEntity> novelEntityList) {

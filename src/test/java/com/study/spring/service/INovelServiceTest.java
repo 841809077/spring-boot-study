@@ -1,6 +1,6 @@
 package com.study.spring.service;
 
-import com.study.spring.annotation.WebLog;
+import com.study.spring.annotation.HandleResult;
 import com.study.spring.entity.NovelEntity;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
@@ -39,7 +39,7 @@ public class INovelServiceTest {
     }
 
     @Test
-    @WebLog
+    @HandleResult
     public void getDownloadList() {
         Map<String, String> map = new HashMap<>();
         map.put("dl", "已下载");
