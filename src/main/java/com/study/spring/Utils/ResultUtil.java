@@ -3,8 +3,6 @@ package com.study.spring.Utils;
 import com.study.spring.Enum.ExceptionEnum;
 import com.study.spring.entity.Result;
 
-import static com.study.spring.Enum.ExceptionEnum.UNKNOW_ERROR;
-
 /**
  * @author Liuyongzhi
  * @description:

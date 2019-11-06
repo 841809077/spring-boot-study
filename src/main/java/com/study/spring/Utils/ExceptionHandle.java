@@ -3,10 +3,8 @@ package com.study.spring.Utils;
 import com.study.spring.Enum.ExceptionEnum;
 import com.study.spring.entity.Result;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.dao.InvalidDataAccessResourceUsageException;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.ControllerAdvice;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * @author Liuyongzhi
@@ -18,16 +16,15 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Slf4j
 public class ExceptionHandle {
 
-//    @ExceptionHandler(value = Exception.class)
+    //    @ExceptionHandler(value = Exception.class)
 //    @ResponseBody
     public Result exceptionGet(Throwable t) {
-//        if(t instanceof Exception){
-//            DescribeException MyException = (DescribeException) e;
-//            return ResultUtil.error(MyException.getCode(),MyException.getMessage());
-//        }
-
-//        log.error("获取详细错误日志: ", t);
-//        return ResultUtil.error(-1, t.getMessage());
+        log.error("异常信息：", t);
+        if (t instanceof InvalidDataAccessResourceUsageException) {
+            return ResultUtil.error(ExceptionEnum.INVALID_EXCEPTION);
+        } else if (t instanceof NullPointerException) {
+            return ResultUtil.error(ExceptionEnum.NULL_EXCEPTION);
+        }
         return ResultUtil.error(ExceptionEnum.UNKNOW_ERROR);
     }
 

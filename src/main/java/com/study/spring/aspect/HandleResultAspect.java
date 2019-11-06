@@ -30,7 +30,11 @@ public class HandleResultAspect {
     @Autowired
     private ExceptionHandle exceptionHandle;
 
-    //    @Pointcut("@annotation(com.study.spring.annotation.ThrowErr)")
+    /**
+     * @description 定义切点
+     * @return void
+     */
+//        @Pointcut("@annotation(com.study.spring.annotation.HandleResult)")
     @Pointcut("execution(* com.study.spring.controller..*.*(..))")
     public void HandleResult() {
     }
@@ -68,7 +72,7 @@ public class HandleResultAspect {
     public Result doAround(ProceedingJoinPoint point) {
         long startTime = System.currentTimeMillis();
         // 执行切点。执行切点后，会去依次调用 @Before -> 接口逻辑代码 -> @After -> @AfterReturning；
-        Object result = null;
+        Object result;
         try {
             // point.proceed 为方法返回值
             result = point.proceed();
@@ -82,6 +86,11 @@ public class HandleResultAspect {
         }
     }
 
+    /**
+     * @description 程序无论正常还是异常，均执行的方法
+     * @param:
+     * @return void
+     */
     @After("HandleResult()")
     public void doAfter() {
         log.info("doAfter...");
@@ -89,30 +98,26 @@ public class HandleResultAspect {
 
     /**
      * @return void
-     * @description 以json格式打印接口执行结果
+     * @description 当程序运行正常，所执行的方法
+     * 以json格式打印接口执行结果
      * @param: t
      * @param: res
      */
     @AfterReturning(pointcut = "@annotation(t)", returning = "res")
-    public Result afterReturn(HandleResult t, Object res) {
+    public void afterReturn(HandleResult t, Object res) {
         log.info("接口 {} 被调用已结束, 返回结果为: {} .",
                 t.desc(), new Gson().toJson(res));
-        Result result = new Result();
-        result.setMsg("123");
-        result.setCode(2);
-        result.setData(res);
-        return result;
     }
 
+    /**
+     * @description 当程序运行异常，所执行的方法
+     * 可用来打印异常
+     * @param: throwable
+     * @return void
+     */
     @AfterThrowing(throwing = "throwable", pointcut = "HandleResult()")
     public void afterThrowing(Throwable throwable) {
-        log.info("After throwing...");
-//        log.error("异常信息：", e);
-        Map<String, Object> map = new HashMap<>();
-        map.put("code", "1");
-        map.put("msg", "error");
-        map.put("data", throwable);
-        log.info("{}", map);
+        log.info("After throwing...", throwable);
     }
 
 }
