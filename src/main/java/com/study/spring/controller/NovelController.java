@@ -3,6 +3,7 @@ package com.study.spring.controller;
 import com.study.spring.Utils.ExceptionHandle;
 import com.study.spring.annotation.HandleResult;
 import com.study.spring.entity.NovelEntity;
+import com.study.spring.entity.Result;
 import com.study.spring.service.INovelService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -31,7 +32,7 @@ public class NovelController {
      * @return: java.util.List<com.study.spring.entity.NovelEntity>
      */
     @RequestMapping("list")
-    @HandleResult
+    @HandleResult(desc = "获取表中所有信息")
     public Object findAll() {
         return iNovelService.findAll();
     }

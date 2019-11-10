@@ -1,0 +1,31 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/spring_boot_study?allowMultiQueries=true&useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=Asia/Shanghai&characterEncoding=utf8
+    username: root
+    password: mycat123
+  jpa:
+    hibernate:
+      ddl-auto: update   # 第一次建表用create,之后用update，
+    show-sql: true    # 在控制台打印出sql语句
+server:
+  port: 8081
+  servlet:
+    context-path: /spring-boot-study
+#logging:
+#  config: classpath:logback-spring.xml
+
+mybatis-plus:
+  # 自定义xml文件路径
+  mapper-locations: classpath:/mapper/*Mapper.xml
+  # 自定义xml文件中用到的实体类路径
+  type-aliases-package: com.study.spring.entity
+  configuration:
+    # 开启驼峰映射
+    map-underscore-to-camel-case: true
+    cache-enabled: false
+    # 返回map时true:当查询数据为空时字段返回为null,false:不加这个查询数据为空时，字段将被隐藏
+    call-setters-on-nulls: true
+    # sql日志打印
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
