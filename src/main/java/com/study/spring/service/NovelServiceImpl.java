@@ -1,5 +1,6 @@
 package com.study.spring.service;
 
+import com.baomidou.dynamic.datasource.annotation.DS;
 import com.study.spring.entity.NovelEntity;
 import com.study.spring.jpa.INovelDAO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import java.util.List;
  * @date 2019/3/17
  */
 @Service
+@DS("db2")
 public class NovelServiceImpl implements INovelService {
 
     @Autowired
